@@ -1,32 +1,22 @@
-//
-//  IndigoApp.swift
-//  Indigo
-//
-//  Created by Miguel Piedrafita on 31/01/2024.
-//
-
 import SwiftUI
-import SwiftData
+import OpenAI
 
 @main
 struct IndigoApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }
-        .modelContainer(sharedModelContainer)
-    }
+			ContentView()
+		}.environment(\.openAI, OpenAI(apiToken: Bundle.main.object(forInfoDictionaryKey: "OPENAI_API_KEY") as! String))
+	}
+}
+
+struct OpenAIKey: EnvironmentKey {
+	static var defaultValue: OpenAI? = nil
+}
+
+extension EnvironmentValues {
+	var openAI: OpenAI? {
+		get { self[OpenAIKey.self] }
+		set { self[OpenAIKey.self] = newValue }
+	}
 }

@@ -9,18 +9,26 @@
 /* Begin PBXBuildFile section */
 		C01E69322B69F8CA00D9A3A8 /* IndigoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E69312B69F8CA00D9A3A8 /* IndigoApp.swift */; };
 		C01E69342B69F8CA00D9A3A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E69332B69F8CA00D9A3A8 /* ContentView.swift */; };
-		C01E69362B69F8CA00D9A3A8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E69352B69F8CA00D9A3A8 /* Item.swift */; };
 		C01E69382B69F8CC00D9A3A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C01E69372B69F8CC00D9A3A8 /* Assets.xcassets */; };
 		C01E693B2B69F8CC00D9A3A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C01E693A2B69F8CC00D9A3A8 /* Preview Assets.xcassets */; };
+		C01E69432B69FEC200D9A3A8 /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E69422B69FEC200D9A3A8 /* ColorExt.swift */; };
+		C01E69462B6A046E00D9A3A8 /* Signifier-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C01E69452B6A046E00D9A3A8 /* Signifier-Light.otf */; };
+		C01E69492B6A089700D9A3A8 /* AudioBufferExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E69482B6A089700D9A3A8 /* AudioBufferExt.swift */; };
+		C01E694C2B6A090300D9A3A8 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = C01E694B2B6A090300D9A3A8 /* OpenAI */; };
+		C01E69532B6A3C3900D9A3A8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C01E692E2B69F8CA00D9A3A8 /* Indigo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Indigo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01E69312B69F8CA00D9A3A8 /* IndigoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndigoApp.swift; sourceTree = "<group>"; };
 		C01E69332B69F8CA00D9A3A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		C01E69352B69F8CA00D9A3A8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		C01E69372B69F8CC00D9A3A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C01E693A2B69F8CC00D9A3A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C01E69422B69FEC200D9A3A8 /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
+		C01E69452B6A046E00D9A3A8 /* Signifier-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Signifier-Light.otf"; sourceTree = "<group>"; };
+		C01E69472B6A048C00D9A3A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C01E69482B6A089700D9A3A8 /* AudioBufferExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBufferExt.swift; sourceTree = "<group>"; };
+		C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01E694C2B6A090300D9A3A8 /* OpenAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				C01E69302B69F8CA00D9A3A8 /* Indigo */,
+				C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */,
 				C01E692F2B69F8CA00D9A3A8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,9 +63,11 @@
 		C01E69302B69F8CA00D9A3A8 /* Indigo */ = {
 			isa = PBXGroup;
 			children = (
+				C01E69472B6A048C00D9A3A8 /* Info.plist */,
+				C01E69442B6A045500D9A3A8 /* fonts */,
+				C01E69412B69FEB200D9A3A8 /* Shared */,
 				C01E69312B69F8CA00D9A3A8 /* IndigoApp.swift */,
 				C01E69332B69F8CA00D9A3A8 /* ContentView.swift */,
-				C01E69352B69F8CA00D9A3A8 /* Item.swift */,
 				C01E69372B69F8CC00D9A3A8 /* Assets.xcassets */,
 				C01E69392B69F8CC00D9A3A8 /* Preview Content */,
 			);
@@ -68,6 +80,23 @@
 				C01E693A2B69F8CC00D9A3A8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C01E69412B69FEB200D9A3A8 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				C01E69422B69FEC200D9A3A8 /* ColorExt.swift */,
+				C01E69482B6A089700D9A3A8 /* AudioBufferExt.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C01E69442B6A045500D9A3A8 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C01E69452B6A046E00D9A3A8 /* Signifier-Light.otf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +115,9 @@
 			dependencies = (
 			);
 			name = Indigo;
+			packageProductDependencies = (
+				C01E694B2B6A090300D9A3A8 /* OpenAI */,
+			);
 			productName = Indigo;
 			productReference = C01E692E2B69F8CA00D9A3A8 /* Indigo.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +146,9 @@
 				Base,
 			);
 			mainGroup = C01E69252B69F8CA00D9A3A8;
+			packageReferences = (
+				C01E694A2B6A090300D9A3A8 /* XCRemoteSwiftPackageReference "OpenAI" */,
+			);
 			productRefGroup = C01E692F2B69F8CA00D9A3A8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -128,6 +163,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01E69532B6A3C3900D9A3A8 /* Secrets.xcconfig in Resources */,
+				C01E69462B6A046E00D9A3A8 /* Signifier-Light.otf in Resources */,
 				C01E693B2B69F8CC00D9A3A8 /* Preview Assets.xcassets in Resources */,
 				C01E69382B69F8CC00D9A3A8 /* Assets.xcassets in Resources */,
 			);
@@ -140,8 +177,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01E69492B6A089700D9A3A8 /* AudioBufferExt.swift in Sources */,
 				C01E69342B69F8CA00D9A3A8 /* ContentView.swift in Sources */,
-				C01E69362B69F8CA00D9A3A8 /* Item.swift in Sources */,
+				C01E69432B69FEC200D9A3A8 /* ColorExt.swift in Sources */,
 				C01E69322B69F8CA00D9A3A8 /* IndigoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +317,7 @@
 				DEVELOPMENT_TEAM = LR4RJT6586;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Indigo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,6 +347,7 @@
 				DEVELOPMENT_TEAM = LR4RJT6586;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Indigo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -348,6 +388,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C01E694A2B6A090300D9A3A8 /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C01E694B2B6A090300D9A3A8 /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C01E694A2B6A090300D9A3A8 /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C01E69262B69F8CA00D9A3A8 /* Project object */;
 }
