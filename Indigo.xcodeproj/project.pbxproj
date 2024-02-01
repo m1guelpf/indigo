@@ -15,7 +15,10 @@
 		C01E69462B6A046E00D9A3A8 /* Signifier-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C01E69452B6A046E00D9A3A8 /* Signifier-Light.otf */; };
 		C01E69492B6A089700D9A3A8 /* AudioBufferExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E69482B6A089700D9A3A8 /* AudioBufferExt.swift */; };
 		C01E694C2B6A090300D9A3A8 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = C01E694B2B6A090300D9A3A8 /* OpenAI */; };
-		C01E69532B6A3C3900D9A3A8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */; };
+		C0EF61B22B6AF5E400CA102B /* RecordingPermissionDeniedAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EF61B12B6AF5E400CA102B /* RecordingPermissionDeniedAlert.swift */; };
+		C0EF61B42B6AFACC00CA102B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0EF61B32B6AFACC00CA102B /* Settings.bundle */; };
+		C0EF61B62B6AFE0600CA102B /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EF61B52B6AFE0600CA102B /* SettingsBundleHelper.swift */; };
+		C0EF61B82B6B004400CA102B /* MissingOpenAIKeyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EF61B72B6B004400CA102B /* MissingOpenAIKeyAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +31,10 @@
 		C01E69452B6A046E00D9A3A8 /* Signifier-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Signifier-Light.otf"; sourceTree = "<group>"; };
 		C01E69472B6A048C00D9A3A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C01E69482B6A089700D9A3A8 /* AudioBufferExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBufferExt.swift; sourceTree = "<group>"; };
-		C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		C0EF61B12B6AF5E400CA102B /* RecordingPermissionDeniedAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPermissionDeniedAlert.swift; sourceTree = "<group>"; };
+		C0EF61B32B6AFACC00CA102B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C0EF61B52B6AFE0600CA102B /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
+		C0EF61B72B6B004400CA102B /* MissingOpenAIKeyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingOpenAIKeyAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				C01E69302B69F8CA00D9A3A8 /* Indigo */,
-				C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */,
 				C01E692F2B69F8CA00D9A3A8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,13 +68,14 @@
 		C01E69302B69F8CA00D9A3A8 /* Indigo */ = {
 			isa = PBXGroup;
 			children = (
+				C0EF61B02B6AF5B700CA102B /* Views */,
 				C01E69472B6A048C00D9A3A8 /* Info.plist */,
 				C01E69442B6A045500D9A3A8 /* fonts */,
 				C01E69412B69FEB200D9A3A8 /* Shared */,
 				C01E69312B69F8CA00D9A3A8 /* IndigoApp.swift */,
-				C01E69332B69F8CA00D9A3A8 /* ContentView.swift */,
 				C01E69372B69F8CC00D9A3A8 /* Assets.xcassets */,
 				C01E69392B69F8CC00D9A3A8 /* Preview Content */,
+				C0EF61B32B6AFACC00CA102B /* Settings.bundle */,
 			);
 			path = Indigo;
 			sourceTree = "<group>";
@@ -87,6 +93,7 @@
 			children = (
 				C01E69422B69FEC200D9A3A8 /* ColorExt.swift */,
 				C01E69482B6A089700D9A3A8 /* AudioBufferExt.swift */,
+				C0EF61B52B6AFE0600CA102B /* SettingsBundleHelper.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -97,6 +104,16 @@
 				C01E69452B6A046E00D9A3A8 /* Signifier-Light.otf */,
 			);
 			path = fonts;
+			sourceTree = "<group>";
+		};
+		C0EF61B02B6AF5B700CA102B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C01E69332B69F8CA00D9A3A8 /* ContentView.swift */,
+				C0EF61B12B6AF5E400CA102B /* RecordingPermissionDeniedAlert.swift */,
+				C0EF61B72B6B004400CA102B /* MissingOpenAIKeyAlert.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,8 +180,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C01E69532B6A3C3900D9A3A8 /* Secrets.xcconfig in Resources */,
 				C01E69462B6A046E00D9A3A8 /* Signifier-Light.otf in Resources */,
+				C0EF61B42B6AFACC00CA102B /* Settings.bundle in Resources */,
 				C01E693B2B69F8CC00D9A3A8 /* Preview Assets.xcassets in Resources */,
 				C01E69382B69F8CC00D9A3A8 /* Assets.xcassets in Resources */,
 			);
@@ -180,6 +197,9 @@
 				C01E69492B6A089700D9A3A8 /* AudioBufferExt.swift in Sources */,
 				C01E69342B69F8CA00D9A3A8 /* ContentView.swift in Sources */,
 				C01E69432B69FEC200D9A3A8 /* ColorExt.swift in Sources */,
+				C0EF61B22B6AF5E400CA102B /* RecordingPermissionDeniedAlert.swift in Sources */,
+				C0EF61B82B6B004400CA102B /* MissingOpenAIKeyAlert.swift in Sources */,
+				C0EF61B62B6AFE0600CA102B /* SettingsBundleHelper.swift in Sources */,
 				C01E69322B69F8CA00D9A3A8 /* IndigoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +209,6 @@
 /* Begin XCBuildConfiguration section */
 		C01E693C2B69F8CC00D9A3A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -253,7 +272,6 @@
 		};
 		C01E693D2B69F8CC00D9A3A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C01E69522B6A3C3900D9A3A8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
