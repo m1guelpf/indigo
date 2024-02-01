@@ -37,6 +37,8 @@
 		C0EF61B52B6AFE0600CA102B /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		C0EF61B72B6B004400CA102B /* MissingOpenAIKeyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingOpenAIKeyAlert.swift; sourceTree = "<group>"; };
 		C0EF61B92B6B2A6D00CA102B /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		C0EF61BB2B6B2C3B00CA102B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C0EF61BC2B6B2E5900CA102B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,8 @@
 		C01E69252B69F8CA00D9A3A8 = {
 			isa = PBXGroup;
 			children = (
+				C0EF61BB2B6B2C3B00CA102B /* README.md */,
+				C0EF61BC2B6B2E5900CA102B /* LICENSE */,
 				C01E69302B69F8CA00D9A3A8 /* Indigo */,
 				C01E692F2B69F8CA00D9A3A8 /* Products */,
 			);
