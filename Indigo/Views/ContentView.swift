@@ -2,7 +2,6 @@ import OpenAI
 import SwiftUI
 import AVFoundation
 
-
 enum Stage: Equatable {
 	case initializing;
 	case missingAPIKey;
@@ -33,7 +32,7 @@ struct ContentView: View {
 
 			VStack {
 				Spacer()
-				
+
 				Rectangle()
 					.fill(stage == .error ? Color.red : [.recording, .responding].contains(stage) ?  Color(hex: "#F5E6FD") : Color.purple)
 					.frame(width: 100, height: 100)
@@ -41,9 +40,9 @@ struct ContentView: View {
 					.animation(.default, value: stage)
 					.opacity(stage == .processing ? 0.5 : 1)
 					.animation(stage == .processing ? .easeInOut(duration: 1).repeatForever(autoreverses: true) : nil, value: stage)
-				
+
 				Spacer()
-				
+
 				Text(stage == .error ? "Something went wrong" : stage == .recording ? "Listening" : stage == .responding ? "Speaking" : stage == .processing ? "Thinking" : "Tap to speak")
 					.foregroundColor(stage == .error ? Color.red : [.recording, .responding].contains(stage) ? .white : .black)
 					.font(.custom("Signifier-Light", size: stage == .error ? 35 : 40))
@@ -69,21 +68,21 @@ struct ContentView: View {
 			}
 		}
 	}
-	
+
 	func prepareForRecording() async {
-		self.audioPlayer.onFinished() {_ in
+		self.audioPlayer.onFinished() {
 			stage = .idle
 		}
-		
+
 		do {
 			openAI = OpenAI(apiToken: try SettingsBundleHelper.getOpenAIKey().get())
 		} catch {
 			self.stage = .missingAPIKey
 			return
 		}
-		
+
 		let session = AVAudioSession.sharedInstance()
-		
+
 		do {
 			try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
 			try session.setActive(true)
@@ -108,14 +107,14 @@ struct ContentView: View {
 			self.stage = .error
 		}
 	}
-	
+
 	func handleStateChange() async {
 		switch stage {
 			// Start the recording
 			case .idle:
 				audioRecorder.record()
 				stage = .recording
-				
+
 			// Stop the recording and transcribe it
 			case .recording:
 				audioRecorder.stop()
@@ -124,54 +123,29 @@ struct ContentView: View {
 				do {
 					let transcription = try await openAI.audioTranscriptions(query: AudioTranscriptionQuery(file: try Data(contentsOf: audioRecorder.url), fileName: "recording.m4a", model: .whisper_1))
 					messages.append(Chat(role: .user, content: transcription.text))
-					
+
 					let completion = try await openAI.chats(query: ChatQuery(model: "gpt-4-turbo-preview", messages: messages))
 					let response = completion.choices.first!.message
 					messages.append(response)
 
 					let tts = try await openAI.audioCreateSpeech(query: AudioSpeechQuery(model: .tts_1, input: response.content!, voice: .echo, responseFormat: .aac, speed: 1))
-					
+
 					stage = .responding
 					self.audioPlayer.play(audio: tts.audioData!)
 				} catch {
 					self.stage = .error
 					print("Could not process response: \(error)")
 				}
-				
+
 			// Interrupt the response
 			case .responding:
 				stage = .idle
 				self.audioPlayer.stop()
-				
+
 			// Nothing to do here
 			case .processing, .initializing, .permissionDenied, .missingAPIKey, .error:
 				break
 		}
-	}
-}
-
-class AudioPlayer: NSObject, AVAudioPlayerDelegate {
-	var onFinished: ((Bool) -> Void)?
-	var audioPlayer: AVAudioPlayer?
-	
-	func onFinished(_ cb: @escaping (Bool) -> Void) {
-		self.onFinished = cb
-	}
-	
-	func play(audio: Data) {
-		let audioPlayer = try! AVAudioPlayer(data: audio)
-		audioPlayer.delegate = self
-
-		self.audioPlayer = audioPlayer
-		audioPlayer.play()
-	}
-	
-	func stop() {
-		self.audioPlayer?.stop()
-	}
-
-	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-		onFinished?(flag)
 	}
 }
 

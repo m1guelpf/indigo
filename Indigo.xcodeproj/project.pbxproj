@@ -19,6 +19,7 @@
 		C0EF61B42B6AFACC00CA102B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0EF61B32B6AFACC00CA102B /* Settings.bundle */; };
 		C0EF61B62B6AFE0600CA102B /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EF61B52B6AFE0600CA102B /* SettingsBundleHelper.swift */; };
 		C0EF61B82B6B004400CA102B /* MissingOpenAIKeyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EF61B72B6B004400CA102B /* MissingOpenAIKeyAlert.swift */; };
+		C0EF61BA2B6B2A6D00CA102B /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EF61B92B6B2A6D00CA102B /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		C0EF61B32B6AFACC00CA102B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C0EF61B52B6AFE0600CA102B /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		C0EF61B72B6B004400CA102B /* MissingOpenAIKeyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingOpenAIKeyAlert.swift; sourceTree = "<group>"; };
+		C0EF61B92B6B2A6D00CA102B /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				C01E69422B69FEC200D9A3A8 /* ColorExt.swift */,
 				C01E69482B6A089700D9A3A8 /* AudioBufferExt.swift */,
 				C0EF61B52B6AFE0600CA102B /* SettingsBundleHelper.swift */,
+				C0EF61B92B6B2A6D00CA102B /* AudioPlayer.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				C01E69492B6A089700D9A3A8 /* AudioBufferExt.swift in Sources */,
 				C01E69342B69F8CA00D9A3A8 /* ContentView.swift in Sources */,
 				C01E69432B69FEC200D9A3A8 /* ColorExt.swift in Sources */,
+				C0EF61BA2B6B2A6D00CA102B /* AudioPlayer.swift in Sources */,
 				C0EF61B22B6AF5E400CA102B /* RecordingPermissionDeniedAlert.swift in Sources */,
 				C0EF61B82B6B004400CA102B /* MissingOpenAIKeyAlert.swift in Sources */,
 				C0EF61B62B6AFE0600CA102B /* SettingsBundleHelper.swift in Sources */,

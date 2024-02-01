@@ -2,9 +2,9 @@ import SwiftUI
 
 struct MissingOpenAIKeyAlert: View {
 	var show: Bool
-	
+
 	@State private var isPresented = false
-	
+
 	var body: some View {
 		VStack {}.alert(isPresented: $isPresented) {
 			Alert(

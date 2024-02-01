@@ -13,10 +13,10 @@ class SettingsBundleHelper {
 		if key != nil && key!.starts(with: "sk-") {
 			return .success(key!)
 		}
-		
+
 		return .failure(NSError(domain: "SettingsBundleHelper", code: 1, userInfo: [NSLocalizedDescriptionKey: "OpenAI API key not found or invalid"]))
 	}
-	
+
 	class func setVersionAndBuildNumber() {
 		let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 		UserDefaults.standard.set(version, forKey: "version_preference")
