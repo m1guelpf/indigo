@@ -3,152 +3,126 @@ import SwiftUI
 import AVFoundation
 
 enum Stage: Equatable {
-	case initializing;
-	case missingAPIKey;
-	case permissionDenied;
-	case idle;
-	case recording;
-	case processing;
-	case responding;
-	case error;
+	case error
+	case ready
+	case loading
+	case missingAPIKey
+	case permissionDenied
 }
 
 struct ContentView: View {
-	@State private var openAI: OpenAI!
-	@State private var audioPlayer = AudioPlayer()
-	@State private var audioRecorder: AVAudioRecorder!
+	@State private var stage: Stage = .loading
+	@State private var conversation: Conversation?
 
-	@State private var messages: [Chat] = []
-	@State private var stage = Stage.initializing
+	var isUserSpeaking: Bool {
+		conversation?.isUserSpeaking ?? false
+	}
 
-    var body: some View {
+	var isModelSpeaking: Bool {
+		conversation?.isPlaying ?? false
+	}
+
+	var hasError: Bool {
+		[.error, .permissionDenied, .missingAPIKey].contains(stage)
+	}
+
+	var text: String {
+		if isUserSpeaking { return "Listening" }
+		if isModelSpeaking { return "Speaking" }
+		if stage == .loading { return "Loading..." }
+		if hasError { return "Something went wrong" }
+
+		return "Say something"
+	}
+
+	var backgroundColor: Color {
+		if stage == .loading { return .white }
+		if hasError { return Color(hex: "#fecaca") }
+		if isModelSpeaking || isUserSpeaking { return .purple }
+
+		return Color(hex: "#F5E6FD")
+	}
+
+	var squareColor: Color {
+		if hasError { return .red }
+		if isUserSpeaking || isModelSpeaking { return Color(hex: "#F5E6FD") }
+
+		return .purple
+	}
+
+	var textColor: Color {
+		if hasError { return .red }
+		if isUserSpeaking || isModelSpeaking { return .white }
+
+		return .black
+	}
+
+	var body: some View {
 		MissingOpenAIKeyAlert(show: stage == .missingAPIKey)
 		RecordingPermissionDeniedAlert(show: stage == .permissionDenied)
 
 		ZStack {
-			Color(stage == .error ? Color(hex: "#fecaca") : [.recording, .responding].contains(stage) ? Color.purple : Color(hex: "#F5E6FD"))
-				.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+			backgroundColor
+				.edgesIgnoringSafeArea(.all)
 				.animation(.default, value: stage)
 
 			VStack {
 				Spacer()
 
 				Rectangle()
-					.fill(stage == .error ? Color.red : [.recording, .responding].contains(stage) ?  Color(hex: "#F5E6FD") : Color.purple)
+					.fill(squareColor)
 					.frame(width: 100, height: 100)
-					.scaleEffect([.recording, .responding].contains(stage) ? 1.3 : 1)
+					.scaleEffect(isUserSpeaking || isModelSpeaking ? 1.3 : 1)
 					.animation(.default, value: stage)
-					.opacity(stage == .processing ? 0.5 : 1)
-					.animation(stage == .processing ? .easeInOut(duration: 1).repeatForever(autoreverses: true) : nil, value: stage)
+					.opacity(stage == .loading ? 0.5 : 1)
+					.animation(stage == .loading ? .easeInOut(duration: 1).repeatForever(autoreverses: true) : nil, value: stage)
+					.sensoryFeedback(trigger: isUserSpeaking) { _, isSpeaking in
+						isSpeaking ? .start : .stop
+					}
 
 				Spacer()
 
-				Text(stage == .error ? "Something went wrong" : stage == .recording ? "Listening" : stage == .responding ? "Speaking" : stage == .processing ? "Thinking" : "Tap to speak")
-					.foregroundColor(stage == .error ? Color.red : [.recording, .responding].contains(stage) ? .white : .black)
+				Text(text)
+					.foregroundColor(textColor)
 					.font(.custom("Signifier-Light", size: stage == .error ? 35 : 40))
 					.animation(.default, value: stage)
+					.transition(.blurReplace)
 					.padding(.bottom, 50)
 			}
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
-		.onTapGesture {
-			Task {
-				await handleStateChange()
-			}
-		}
-		.task {
-			await prepareForRecording()
-		}
+		.task { await prepareForRecording() }
 		.onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-			Task {
-				if [.missingAPIKey, .permissionDenied].contains(stage) {
-					stage = .initializing
-					await prepareForRecording()
-				}
-			}
+			guard hasError else { return }
+
+			stage = .loading
+			Task { await prepareForRecording() }
 		}
 	}
 
 	func prepareForRecording() async {
-		self.audioPlayer.onFinished() {
-			stage = .idle
-		}
-
-		do {
-			openAI = OpenAI(apiToken: try SettingsBundleHelper.getOpenAIKey().get())
-		} catch {
-			self.stage = .missingAPIKey
+		guard let apiKey = SettingsBundleHelper.getOpenAIKey() else {
+			stage = .missingAPIKey
 			return
 		}
 
-		let session = AVAudioSession.sharedInstance()
+		guard await AVAudioApplication.requestRecordPermission() else {
+			stage = .permissionDenied
+			return
+		}
+
+		conversation = Conversation(authToken: apiKey)
 
 		do {
-			try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-			try session.setActive(true)
-
-			let allowed = await AVAudioApplication.requestRecordPermission()
-			if !allowed {
-				self.stage = .permissionDenied
-				return
-			}
-
-			let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-			audioRecorder = try AVAudioRecorder(url: paths[0].appendingPathComponent("recording.m4a"), settings: [
-				AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-				AVSampleRateKey: 12000,
-				AVNumberOfChannelsKey: 1,
-				AVEncoderAudioQualityKey: AVAudioQuality.low.rawValue
-			])
-			audioRecorder.prepareToRecord()
-
-			self.stage = .idle
+			try conversation!.startListening()
+			stage = .ready
 		} catch {
-			self.stage = .error
-		}
-	}
-
-	func handleStateChange() async {
-		switch stage {
-			// Start the recording
-			case .idle:
-				audioRecorder.record()
-				stage = .recording
-
-			// Stop the recording and transcribe it
-			case .recording:
-				audioRecorder.stop()
-				stage = .processing
-
-				do {
-					let transcription = try await openAI.audioTranscriptions(query: AudioTranscriptionQuery(file: try Data(contentsOf: audioRecorder.url), fileName: "recording.m4a", model: .whisper_1))
-					messages.append(Chat(role: .user, content: transcription.text))
-
-					let completion = try await openAI.chats(query: ChatQuery(model: "gpt-4-turbo-preview", messages: messages))
-					let response = completion.choices.first!.message
-					messages.append(response)
-
-					let tts = try await openAI.audioCreateSpeech(query: AudioSpeechQuery(model: .tts_1, input: response.content!, voice: .echo, responseFormat: .aac, speed: 1))
-
-					stage = .responding
-					self.audioPlayer.play(audio: tts.audioData!)
-				} catch {
-					self.stage = .error
-					print("Could not process response: \(error)")
-				}
-
-			// Interrupt the response
-			case .responding:
-				stage = .idle
-				self.audioPlayer.stop()
-
-			// Nothing to do here
-			case .processing, .initializing, .permissionDenied, .missingAPIKey, .error:
-				break
+			print("Failed to start handling voice: \(error)")
+			stage = .error
 		}
 	}
 }
 
 #Preview {
-    ContentView()
+	ContentView()
 }

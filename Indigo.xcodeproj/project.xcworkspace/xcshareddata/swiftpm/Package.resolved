@@ -1,14 +1,15 @@
 {
+  "originHash" : "9d76355f7ca7915712326947364fbfd5ae11b6d920d7522d4bd3a2711f0d1e77",
   "pins" : [
     {
-      "identity" : "openai",
+      "identity" : "swift-realtime-openai",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/MacPaw/OpenAI",
+      "location" : "https://github.com/m1guelpf/swift-realtime-openai",
       "state" : {
         "branch" : "main",
-        "revision" : "497266a278de1f32a609981e0012faabcf2091b4"
+        "revision" : "a397feab7f38468501727b51c15c70ddb61aa05e"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
